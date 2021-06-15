@@ -1,43 +1,92 @@
-export const InfoLogin = () => {
-  return (
-    <section className="container formulario-seccion shadow-sm  mb-5 bg-white rounded ">
-      <form className="row p-3 justify-content-center">
-        <div className="input-group col-sm-12 mb-4">
-          <div className="input-group-prepend ">
-            <label className="input-group-text" htmlFor="apodo">
-              Apodo
-            </label>
-          </div>
-          <input className="form-control" type="text" id="apodo" />
-        </div>
+import { checkPropTypes } from "prop-types";
+import { useState } from "react";
 
-        <div className="input-group col-sm-12 mb-4">
-          <div className="input-group-prepend ">
-            <label className="input-group-text" htmlFor="passwordRegistro">
-              Contraseña
-            </label>
+export const InfoLogin = (props) => {
+  const { etapa, setEtapa, setInformacion } = props;
+  const [contrasenya, setContrasenya] = useState("");
+  const [repertiContrasenya, setRepetirContrasenya] = useState("");
+  const [apodo, setApodo] = useState("");
+  const comprobarDatos = (password, nick) => {
+    setInformacion((info) => {
+      return info.map((dato) => {
+        return {
+          ...dato,
+          apodo: nick,
+          contrasenya: password,
+        };
+      });
+    });
+    setEtapa(etapa + 1);
+  };
+
+  if (etapa === 1) {
+    return (
+      <section className="container formulario-seccion shadow-sm  mb-5 bg-white rounded ">
+        <form
+          className="row p-3 justify-content-center"
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (contrasenya === repertiContrasenya) {
+              return comprobarDatos(contrasenya, apodo);
+            }
+          }}
+        >
+          <div className="input-group col-sm-12 mb-4">
+            <div className="input-group-prepend ">
+              <label className="input-group-text" htmlFor="apodo">
+                Apodo
+              </label>
+            </div>
+            <input
+              className="form-control"
+              type="text"
+              id="apodo"
+              onChange={(e) => setApodo(e.target.value)}
+            />
           </div>
-          <input
-            className="form-control"
-            type="password"
-            id="passwordRegistro"
-          />
-        </div>
-        <div className="input-group col-sm-12 mb-4">
-          <div className="input-group-prepend ">
-            <label className="input-group-text" htmlFor="confirm">
-              Confirmar
-            </label>
+
+          <div className="input-group col-sm-12 mb-4">
+            <div className="input-group-prepend ">
+              <label className="input-group-text" htmlFor="passwordRegistro">
+                Contraseña
+              </label>
+            </div>
+            <input
+              className="form-control"
+              type="password"
+              id="passwordRegistro"
+              onChange={(e) => setContrasenya(e.target.value)}
+            />
           </div>
-          <input className="form-control" type="password" id="confirm" />
-        </div>
-        <button type="submit" className="btn btn-primary mt-3 mr-3 col-sm-4">
-          Atras
-        </button>
-        <button type="submit" className="btn btn-primary mt-3 col-sm-4">
-          Registrar
-        </button>
-      </form>
-    </section>
-  );
+          <div className="input-group col-sm-12 mb-4">
+            <div className="input-group-prepend ">
+              <label className="input-group-text" htmlFor="confirm">
+                Confirmar
+              </label>
+            </div>
+            <input
+              className="form-control"
+              type="password"
+              id="confirm"
+              onChange={(e) => setRepetirContrasenya(e.target.value)}
+            />
+          </div>
+          <button
+            type="submit"
+            className="btn btn-primary mt-3 mr-3 col-sm-4"
+            onClick={(e) => {
+              e.preventDefault();
+              setEtapa(etapa - 1);
+            }}
+          >
+            Atras
+          </button>
+          <button type="submit" className="btn btn-primary mt-3 col-sm-4">
+            Registrar
+          </button>
+        </form>
+      </section>
+    );
+  }
+  return "";
 };

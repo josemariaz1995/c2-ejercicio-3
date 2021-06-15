@@ -1,44 +1,106 @@
-export const InfoRegistro = () => {
-  return (
-    <section className="container formulario-seccion shadow-sm  mb-5 bg-white rounded ">
-      <form className="row p-3 justify-content-center">
-        <div className="input-group col-sm-12 mb-4">
-          <div className="input-group-prepend ">
-            <label className="input-group-text" htmlFor="nombre">
-              Nombre
-            </label>
+import { PropTypes } from "prop-types";
+import { useState } from "react";
+export const InfoRegistro = (props) => {
+  const { setInformacion, etapa, setEtapa } = props;
+  const registrarDatos = (nombre, apellido, email, anyo) => {
+    setInformacion((informacion) => {
+      return informacion.map((dato) => {
+        return {
+          ...dato,
+          nombre: nombre,
+          apellidos: apellido,
+          email: email,
+          anyo: anyo,
+        };
+      });
+    });
+    setEtapa(etapa + 1);
+  };
+  const [nombre, setNombre] = useState("");
+  const [apellido, setApellido] = useState("");
+  const [email, setEmail] = useState("");
+  const [anyo, setAnyo] = useState(0);
+  if (etapa === 0) {
+    return (
+      <section className="container formulario-seccion shadow-sm  mb-5 bg-white rounded ">
+        <form
+          className="row p-3 justify-content-center"
+          onSubmit={(e) => {
+            e.preventDefault();
+            registrarDatos(nombre, apellido, email, anyo);
+          }}
+        >
+          <div className="input-group col-sm-12 mb-4">
+            <div className="input-group-prepend ">
+              <label className="input-group-text" htmlFor="nombre">
+                Nombre
+              </label>
+            </div>
+            <input
+              className="form-control"
+              type="text"
+              id="nombre"
+              onChange={(e) => {
+                setNombre(e.target.value);
+              }}
+              required
+            />
           </div>
-          <input className="form-control" type="text" id="nombre" />
-        </div>
 
-        <div className="input-group col-sm-12 mb-4">
-          <div className="input-group-prepend ">
-            <label className="input-group-text" htmlFor="apellido">
-              Apellidos
-            </label>
+          <div className="input-group col-sm-12 mb-4">
+            <div className="input-group-prepend ">
+              <label className="input-group-text" htmlFor="apellido">
+                Apellidos
+              </label>
+            </div>
+            <input
+              className="form-control"
+              type="text"
+              id="apellido"
+              onChange={(e) => setApellido(e.target.value)}
+              required
+            />
           </div>
-          <input className="form-control" type="text" id="apellido" />
-        </div>
-        <div className="input-group col-sm-12 mb-4">
-          <div className="input-group-prepend ">
-            <label className="input-group-text" htmlFor="fecha">
-              Nacimiento
-            </label>
+          <div className="input-group col-sm-12 mb-4">
+            <div className="input-group-prepend ">
+              <label className="input-group-text" htmlFor="fecha">
+                Nacimiento
+              </label>
+            </div>
+            <input
+              className="form-control"
+              type="date"
+              id="fecha"
+              onChange={(e) => setAnyo(e.target.value)}
+              required
+            />
           </div>
-          <input className="form-control" type="date" id="fecha" />
-        </div>
-        <div className="input-group col-sm-12 mb-4">
-          <div className="input-group-prepend ">
-            <label className="input-group-text" htmlFor="email">
-              Email
-            </label>
+          <div className="input-group col-sm-12 mb-4">
+            <div className="input-group-prepend ">
+              <label className="input-group-text" htmlFor="email">
+                Email
+              </label>
+            </div>
+            <input
+              className="form-control"
+              type="email"
+              id="email"
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+              required
+            />
           </div>
-          <input className="form-control" type="email" id="email" />
-        </div>
-        <button type="submit" className="btn btn-primary mt-3 col-sm-8">
-          Siguiente
-        </button>
-      </form>
-    </section>
-  );
+          <button type="submit" className="btn btn-primary mt-3 col-sm-8">
+            Siguiente
+          </button>
+        </form>
+      </section>
+    );
+  }
+  return "";
+};
+
+InfoRegistro.propTypes = {
+  setInformacion: PropTypes.func,
 };
