@@ -3,24 +3,22 @@ import PropTypes from "prop-types";
 
 export const Login = (props) => {
   const {
-    informacion: { apodo, contrasenya },
+    informacion,
+    informacion: { apodo, contrasenya, email, anyo, nombre, apellidos },
     etapa,
     setEtapa,
+    setRecordar,
   } = props;
   const [apodoLogin, setApodo] = useState("");
   const [passwordLogin, setPassword] = useState("");
-  const [recordar, setRecordar] = useState(false);
-  console.log(recordar, apodoLogin, passwordLogin);
 
   const verificar = () => {
-    if (/* apodoLogin === apodo  */ /* && */ passwordLogin === contrasenya) {
+    if (apodoLogin === apodo && passwordLogin === contrasenya) {
       setEtapa(etapa + 1);
     } else {
       console.log("datos incorrectos");
     }
-    console.log(passwordLogin, contrasenya);
   };
-
   if (etapa === 2) {
     return (
       <section className="container formulario-seccion shadow-sm  mb-5 bg-white rounded ">
@@ -41,6 +39,7 @@ export const Login = (props) => {
               className="form-control"
               type="text"
               id="apodoLog"
+              value={localStorage.getItem("user") !== null ? apodo : apodoLogin}
               onChange={(e) => setApodo(e.target.value)}
             />
           </div>
@@ -54,6 +53,9 @@ export const Login = (props) => {
               className="form-control"
               type="password"
               id="passwordLog"
+              value={
+                localStorage.getItem("password") ? contrasenya : passwordLogin
+              }
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
@@ -62,22 +64,25 @@ export const Login = (props) => {
               className="form-check-input"
               type="checkbox"
               id="recordar"
-              onChange={(e) => setRecordar(e.target.checked)}
+              onChange={(e) => {
+                setRecordar(e.target.checked);
+                if (e.target.checked) {
+                  localStorage.setItem("user", apodo);
+                  localStorage.setItem("password", contrasenya);
+                  localStorage.setItem("email", email);
+                  localStorage.setItem("anyo", anyo);
+                  localStorage.setItem("apellidos", apellidos);
+                  localStorage.setItem("nombre", nombre);
+                } else {
+                  localStorage.clear();
+                }
+              }}
             />
             <label className="form-check-label recordar" htmlFor="recordar">
               Recordar Contraseña?
             </label>
           </div>
-          <button
-            type="submit"
-            className="btn btn-primary mt-3 mr-3 col-sm-4"
-            onClick={(e) => {
-              e.preventDefault();
-              setEtapa(etapa - 1);
-            }}
-          >
-            Atras
-          </button>
+
           <button type="submit" className="btn btn-primary mt-3 col-sm-4">
             Iniciar Sessión
           </button>

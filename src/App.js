@@ -3,12 +3,29 @@ import { InfoRegistro } from "./components/InfoRegistro";
 import { InfoLogin } from "./components/InfoLogin";
 import { Login } from "./components/Login";
 import { DisplayInfoUser } from "./components/DisplayInfoUser";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const [informacion, setInformacion] = useState(InfoUser);
   const [etapa, setEtapa] = useState(0);
-  console.log(informacion);
+  const [recordar, setRecordar] = useState(false);
+  useEffect(() => {
+    if (localStorage.getItem("password") !== null) {
+      setInformacion((informacion) => {
+        return {
+          ...informacion,
+          apodo: localStorage.getItem("user"),
+          contrasenya: localStorage.getItem("password"),
+          email: localStorage.getItem("email"),
+          anyo: localStorage.getItem("anyo"),
+          apellidos: localStorage.getItem("apellidos"),
+          nombre: localStorage.getItem("nombre"),
+        };
+      });
+      setEtapa(3);
+    }
+  }, []);
+
   return (
     <>
       <header className="d-flex align-items-center justify-content-center p-5 bg-primary text-white border-bottom">
@@ -22,10 +39,17 @@ function App() {
         />
         <InfoLogin
           etapa={etapa}
+          informacion={informacion}
           setEtapa={setEtapa}
           setInformacion={setInformacion}
         />
-        <Login etapa={etapa} setEtapa={setEtapa} informacion={informacion} />
+        <Login
+          etapa={etapa}
+          setEtapa={setEtapa}
+          setRecordar={setRecordar}
+          recordar={recordar}
+          informacion={informacion}
+        />
         <DisplayInfoUser
           etapa={etapa}
           setEtapa={setEtapa}
