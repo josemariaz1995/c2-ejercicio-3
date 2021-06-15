@@ -1,4 +1,4 @@
-import { checkPropTypes } from "prop-types";
+import { PropTypes } from "prop-types";
 import { useState } from "react";
 
 export const InfoLogin = (props) => {
@@ -41,6 +41,7 @@ export const InfoLogin = (props) => {
               id="apodo"
               value={apodoLogin}
               onChange={(e) => setApodo(e.target.value)}
+              required
             />
           </div>
 
@@ -56,6 +57,7 @@ export const InfoLogin = (props) => {
               id="passwordRegistro"
               value={contrasenya}
               onChange={(e) => setContrasenya(e.target.value)}
+              required
             />
           </div>
           <div className="input-group col-sm-12 mb-4">
@@ -70,6 +72,7 @@ export const InfoLogin = (props) => {
               id="confirm"
               value={repetirContrasenya}
               onChange={(e) => setRepetirContrasenya(e.target.value)}
+              required
             />
           </div>
           <button
@@ -90,4 +93,9 @@ export const InfoLogin = (props) => {
     );
   }
   return "";
+};
+InfoLogin.propTypes = {
+  setInformacion: PropTypes.func,
+  etapa: PropTypes.number.isRequired,
+  setEtapa: PropTypes.func.isRequired,
 };

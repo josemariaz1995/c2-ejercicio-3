@@ -1,10 +1,11 @@
+import { PropTypes } from "prop-types";
+
 export const DisplayInfoUser = (props) => {
   const {
     informacion: { nombre, apellidos, email, apodo, anyo, contrasenya },
     setEtapa,
     etapa,
   } = props;
-  console.log(localStorage);
   if (etapa === 3) {
     return (
       <section className="container formulario-seccion  p-3 mb-5 bg-white rounded d-flex justify-content-center">
@@ -30,4 +31,14 @@ export const DisplayInfoUser = (props) => {
     );
   }
   return "";
+};
+DisplayInfoUser.propTypes = {
+  informacion: PropTypes.shape({
+    nombre: PropTypes.string.isRequired,
+    apellidos: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    apodo: PropTypes.string.isRequired,
+    contrasenya: PropTypes.string.isRequired,
+    anyo: PropTypes.string.isRequired,
+  }),
 };
