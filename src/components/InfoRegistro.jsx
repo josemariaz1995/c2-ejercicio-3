@@ -17,7 +17,7 @@ export const InfoRegistro = (props) => {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [email, setEmail] = useState("");
-  const [anyo, setAnyo] = useState(0);
+  const [anyo, setAnyo] = useState("");
   if (etapa === 0) {
     return (
       <section className="container formulario-seccion shadow-sm  mb-5 bg-white rounded ">
@@ -105,4 +105,6 @@ export const InfoRegistro = (props) => {
 
 InfoRegistro.propTypes = {
   setInformacion: PropTypes.func,
+  etapa: PropTypes.number.isRequired,
+  setEtapa: PropTypes.func.isRequired,
 };

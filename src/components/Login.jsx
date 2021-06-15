@@ -8,10 +8,10 @@ export const Login = (props) => {
     etapa,
     setEtapa,
     setRecordar,
+    recordar,
   } = props;
   const [apodoLogin, setApodo] = useState("");
   const [passwordLogin, setPassword] = useState("");
-
   const verificar = () => {
     if (apodoLogin === apodo && passwordLogin === contrasenya) {
       setEtapa(etapa + 1);
@@ -27,6 +27,9 @@ export const Login = (props) => {
           onSubmit={(e) => {
             e.preventDefault();
             verificar();
+            if (!recordar) {
+              setPassword("");
+            }
           }}
         >
           <div className="input-group col-sm-12 mb-4">
@@ -41,6 +44,7 @@ export const Login = (props) => {
               id="apodoLog"
               value={localStorage.getItem("user") !== null ? apodo : apodoLogin}
               onChange={(e) => setApodo(e.target.value)}
+              required
             />
           </div>
           <div className="input-group col-sm-12 mb-4">
@@ -53,10 +57,9 @@ export const Login = (props) => {
               className="form-control"
               type="password"
               id="passwordLog"
-              value={
-                localStorage.getItem("password") ? contrasenya : passwordLogin
-              }
+              value={passwordLogin}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
           <div className="form-check col-sm-12 text-right">
@@ -77,6 +80,7 @@ export const Login = (props) => {
                   localStorage.clear();
                 }
               }}
+              checked={recordar}
             />
             <label className="form-check-label recordar" htmlFor="recordar">
               Recordar Contraseña?
@@ -95,4 +99,17 @@ export const Login = (props) => {
 Login.protoTypes = {
   contrasenya: PropTypes.string.isRequired,
   apodo: PropTypes.string.isRequired,
+};
+Login.propTypes = {
+  informacion: PropTypes.shape({
+    nombre: PropTypes.string.isRequired,
+    apellidos: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    apodo: PropTypes.string.isRequired,
+    contrasenya: PropTypes.string.isRequired,
+    anyo: PropTypes.string.isRequired,
+  }),
+  etapa: PropTypes.number.isRequired,
+  setEtapa: PropTypes.func.isRequired,
+  setRecordar: PropTypes.func.isRequired,
 };
