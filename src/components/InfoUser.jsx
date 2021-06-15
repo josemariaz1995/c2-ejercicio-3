@@ -4,6 +4,7 @@ export const InfoUser = [
     apellidos: "",
     email: "",
     apodo: "",
+    anyo: "",
     contrasenya: "",
   },
 ];
