@@ -4,15 +4,13 @@ export const InfoRegistro = (props) => {
   const { setInformacion, etapa, setEtapa } = props;
   const registrarDatos = (nombre, apellido, email, anyo) => {
     setInformacion((informacion) => {
-      return informacion.map((dato) => {
-        return {
-          ...dato,
-          nombre: nombre,
-          apellidos: apellido,
-          email: email,
-          anyo: anyo,
-        };
-      });
+      return {
+        ...informacion,
+        nombre: nombre,
+        apellidos: apellido,
+        email: email,
+        anyo: anyo.split("-").reverse().join("/"),
+      };
     });
     setEtapa(etapa + 1);
   };
@@ -40,6 +38,7 @@ export const InfoRegistro = (props) => {
               className="form-control"
               type="text"
               id="nombre"
+              value={nombre}
               onChange={(e) => {
                 setNombre(e.target.value);
               }}
@@ -57,6 +56,7 @@ export const InfoRegistro = (props) => {
               className="form-control"
               type="text"
               id="apellido"
+              value={apellido}
               onChange={(e) => setApellido(e.target.value)}
               required
             />
@@ -71,6 +71,7 @@ export const InfoRegistro = (props) => {
               className="form-control"
               type="date"
               id="fecha"
+              value={anyo}
               onChange={(e) => setAnyo(e.target.value)}
               required
             />
@@ -85,6 +86,7 @@ export const InfoRegistro = (props) => {
               className="form-control"
               type="email"
               id="email"
+              value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
               }}

@@ -4,17 +4,15 @@ import { useState } from "react";
 export const InfoLogin = (props) => {
   const { etapa, setEtapa, setInformacion } = props;
   const [contrasenya, setContrasenya] = useState("");
-  const [repertiContrasenya, setRepetirContrasenya] = useState("");
-  const [apodo, setApodo] = useState("");
+  const [repetirContrasenya, setRepetirContrasenya] = useState("");
+  const [apodoLogin, setApodo] = useState("");
   const comprobarDatos = (password, nick) => {
     setInformacion((info) => {
-      return info.map((dato) => {
-        return {
-          ...dato,
-          apodo: nick,
-          contrasenya: password,
-        };
-      });
+      return {
+        ...info,
+        apodo: nick,
+        contrasenya: password,
+      };
     });
     setEtapa(etapa + 1);
   };
@@ -26,8 +24,8 @@ export const InfoLogin = (props) => {
           className="row p-3 justify-content-center"
           onSubmit={(e) => {
             e.preventDefault();
-            if (contrasenya === repertiContrasenya) {
-              return comprobarDatos(contrasenya, apodo);
+            if (contrasenya === repetirContrasenya) {
+              return comprobarDatos(contrasenya, apodoLogin);
             }
           }}
         >
@@ -41,6 +39,7 @@ export const InfoLogin = (props) => {
               className="form-control"
               type="text"
               id="apodo"
+              value={apodoLogin}
               onChange={(e) => setApodo(e.target.value)}
             />
           </div>
@@ -55,6 +54,7 @@ export const InfoLogin = (props) => {
               className="form-control"
               type="password"
               id="passwordRegistro"
+              value={contrasenya}
               onChange={(e) => setContrasenya(e.target.value)}
             />
           </div>
@@ -68,6 +68,7 @@ export const InfoLogin = (props) => {
               className="form-control"
               type="password"
               id="confirm"
+              value={repetirContrasenya}
               onChange={(e) => setRepetirContrasenya(e.target.value)}
             />
           </div>

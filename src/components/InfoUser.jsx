@@ -1,10 +1,8 @@
-export const InfoUser = [
-  {
-    nombre: "",
-    apellidos: "",
-    email: "",
-    apodo: "",
-    anyo: "",
-    contrasenya: "",
-  },
-];
+export const InfoUser = {
+  nombre: "",
+  apellidos: "",
+  email: "",
+  apodo: "",
+  anyo: "",
+  contrasenya: "",
+};
